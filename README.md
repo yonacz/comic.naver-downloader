@@ -1,12 +1,14 @@
 
-**INSTALLATION/USAGE**
+**INSTALLATION**
 
 ```ps1
 git clone https://github.com/ZilverSick/comic.naver-downloader.git
 cd comic.naver-downloader
+```
+**USAGE**
+```ps1
 python nava.py 816614 1 40 .\webtoons
 ```
-
 
 
 
