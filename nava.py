@@ -384,7 +384,11 @@ class HighTechWebtoonDownloader:
                     
                     if div:
                         img_tags = div.find_all('img')
-                        img_links = [img['src'] for img in img_tags if 'src' in img.attrs]
+                        img_links: List[str] = []
+                        for img in img_tags:
+                            src = img.get('src')
+                            if isinstance(src, str) and src:
+                                img_links.append(src)
                         self.dl.extend(img_links)
                         
                         img_folder = Path(full_path) / str(cur)
@@ -429,8 +433,9 @@ class HighTechWebtoonDownloader:
         if self.session_stats['images_downloaded'] > 0:
             print(f"⚡ Download speed: {self.session_stats['images_downloaded']/elapsed:.2f} images/sec")
 
-async def main_download_process(comic_id, start, end, outpath):
+async def main_download_process(comic_id: int, start: int, end: int, outpath: str):
     """Main download process"""
+    assert outpath is not None, "outpath must not be None"
     downloader = HighTechWebtoonDownloader()
     
     # Create main folder
